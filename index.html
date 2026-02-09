@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FocusStake — Stake Your Focus. Earn Your Rewards.</title>
+  <meta name="description" content="FocusStake turns studying into a game. Stake coins, stay focused, pass check-ins, and win 1.5x your stake. AI-powered Snap Solve and Quiz Generation. Launching March 1, 2026." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════
+       RESET & BASE
+       ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0A0A0A;
+      color: #FAFAFA;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ═══════════════════════════════════════════
+       UTILITIES
+       ═══════════════════════════════════════════ */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .gradient-text {
+      background: linear-gradient(135deg, #6C5CE7, #A29BFE, #6C5CE7);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease infinite;
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .badge-accent {
+      background: rgba(108, 92, 231, 0.15);
+      color: #A29BFE;
+      border: 1px solid rgba(108, 92, 231, 0.25);
+    }
+    .badge-success {
+      background: rgba(0, 184, 148, 0.15);
+      color: #00B894;
+      border: 1px solid rgba(0, 184, 148, 0.25);
+    }
+    .section-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin: 0;
+    }
+
+    /* ═══════════════════════════════════════════
+       BUTTONS
+       ═══════════════════════════════════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-primary {
+      background: #6C5CE7;
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(108, 92, 231, 0.35);
+    }
+    .btn-primary:hover {
+      background: #5A4BD1;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(108, 92, 231, 0.45);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: #FAFAFA;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-1px);
+    }
+    .btn-lg { padding: 16px 36px; font-size: 17px; border-radius: 12px; }
+
+    /* ═══════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: #6C5CE7; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #999;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #FAFAFA; }
+    .nav-cta { padding: 10px 22px; font-size: 14px; }
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #FAFAFA;
+      margin: 6px 0;
+      transition: all 0.3s;
+      border-radius: 2px;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      z-index: 99;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 16px;
+      font-weight: 500;
+      color: #ccc;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: #FAFAFA; }
+    .mobile-menu .btn { margin-top: 8px; text-align: center; }
+
+    /* ═══════════════════════════════════════════
+       SECTION HEADERS
+       ═══════════════════════════════════════════ */
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-header .overline {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #6C5CE7;
+      margin-bottom: 12px;
+    }
+    .section-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+    }
+    .section-header p {
+      font-size: 17px;
+      color: #999;
+      max-width: 520px;
+      margin: 16px auto 0;
+    }
+
+    /* ═══════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════ */
+    .hero {
+      padding: 140px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-badge { margin-bottom: 24px; }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 17px;
+      color: #999;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* Phone mockup */
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .phone-mockup {
+      width: 280px;
+      height: 560px;
+      background: #111;
+      border-radius: 36px;
+      border: 3px solid #2A2A2A;
+      padding: 20px 16px;
+      position: relative;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    }
+    .phone-notch {
+      width: 120px;
+      height: 28px;
+      background: #0A0A0A;
+      border-radius: 0 0 16px 16px;
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+    }
+    .phone-screen {
+      padding-top: 24px;
+    }
+    .phone-greeting {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 2px;
+    }
+    .phone-name {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .phone-stats {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .phone-stat {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+    .phone-stat .val {
+      font-size: 16px;
+      font-weight: 700;
+      color: #6C5CE7;
+    }
+    .phone-stat .lbl {
+      font-size: 9px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .phone-timer {
+      background: rgba(108, 92, 231, 0.08);
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .phone-timer-ring {
+      width: 120px;
+      height: 120px;
+      border: 6px solid rgba(108, 92, 231, 0.2);
+      border-top-color: #6C5CE7;
+      border-right-color: #6C5CE7;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: timerSpin 8s linear infinite;
+    }
+    @keyframes timerSpin {
+      0% { border-top-color: #6C5CE7; border-right-color: #6C5CE7; border-bottom-color: rgba(108,92,231,0.2); border-left-color: rgba(108,92,231,0.2); }
+      25% { border-top-color: rgba(108,92,231,0.2); border-right-color: #6C5CE7; border-bottom-color: #6C5CE7; border-left-color: rgba(108,92,231,0.2); }
+      50% { border-top-color: rgba(108,92,231,0.2); border-right-color: rgba(108,92,231,0.2); border-bottom-color: #6C5CE7; border-left-color: #6C5CE7; }
+      75% { border-top-color: #6C5CE7; border-right-color: rgba(108,92,231,0.2); border-bottom-color: rgba(108,92,231,0.2); border-left-color: #6C5CE7; }
+      100% { border-top-color: #6C5CE7; border-right-color: #6C5CE7; border-bottom-color: rgba(108,92,231,0.2); border-left-color: rgba(108,92,231,0.2); }
+    }
+    .phone-timer-time {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .phone-timer-label {
+      font-size: 10px;
+      color: #999;
+    }
+    .phone-timer-subject {
+      font-size: 11px;
+      color: #A29BFE;
+      font-weight: 600;
+    }
+    .phone-session-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+    .phone-session-card .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .phone-session-card .subj {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .phone-session-card .status {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(0, 184, 148, 0.15);
+      color: #00B894;
+    }
+    .phone-session-card .meta {
+      font-size: 10px;
+      color: #666;
+    }
+    .phone-session-card .meta strong { color: #00B894; }
+    .phone-tab-bar {
+      position: absolute;
+      bottom: 16px; left: 16px; right: 16px;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0 6px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .phone-tab {
+      text-align: center;
+      font-size: 8px;
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .phone-tab.active { color: #6C5CE7; }
+    .phone-tab-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 2px;
+      background: #6C5CE7;
+      margin: 0 auto 4px;
+    }
+
+    /* Hero stats bar */
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 60px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+    }
+    .hero-stat h3 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .hero-stat p { font-size: 12px; color: #666; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ═══════════════════════════════════════════
+       COUNTDOWN
+       ═══════════════════════════════════════════ */
+    .countdown-section {
+      padding: 60px 0;
+      text-align: center;
+    }
+    .countdown-section h2 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #666;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+    .countdown {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .countdown-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px 28px;
+      min-width: 100px;
+    }
+    .countdown-item .number {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: #6C5CE7;
+      display: block;
+    }
+    .countdown-item .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #666;
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════
+       AI SHOWCASE
+       ═══════════════════════════════════════════ */
+    .ai-showcase {
+      padding: 100px 0;
+    }
+    .ai-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .ai-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 44px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .ai-card:hover {
+      border-color: rgba(108, 92, 231, 0.3);
+      transform: translateY(-4px);
+    }
+    .ai-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .ai-card:first-child::before { background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, transparent 70%); }
+    .ai-card:last-child::before { background: radial-gradient(circle, rgba(0, 184, 148, 0.1) 0%, transparent 70%); }
+    .ai-card > * { position: relative; z-index: 1; }
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    .ai-card:first-child .ai-badge { color: #A29BFE; }
+    .ai-card:last-child .ai-badge { color: #00B894; }
+    .ai-icon {
+      font-size: 44px;
+      margin-bottom: 20px;
+    }
+    .ai-card h3 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .ai-card p {
+      font-size: 15px;
+      color: #999;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .ai-features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ai-features-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+    .ai-features-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .ai-card:first-child .ai-features-list li::before { background: #6C5CE7; }
+    .ai-card:last-child .ai-features-list li::before { background: #00B894; }
+
+    /* ═══════════════════════════════════════════
+       HOW IT WORKS
+       ═══════════════════════════════════════════ */
+    .how-it-works {
+      padding: 100px 0;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .step {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 36px 24px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .step:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(108, 92, 231, 0.3);
+      transform: translateY(-4px);
+    }
+    .step-number {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(108, 92, 231, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #6C5CE7;
+      margin-bottom: 16px;
+    }
+    .step-icon { font-size: 28px; margin-bottom: 12px; }
+    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .step p { color: #999; font-size: 14px; line-height: 1.6; }
+
+    /* ═══════════════════════════════════════════
+       FEATURES GRID
+       ═══════════════════════════════════════════ */
+    .features { padding: 100px 0; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 32px 24px;
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(108, 92, 231, 0.2);
+      transform: translateY(-4px);
+    }
+    .feature-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    .fi-purple { background: rgba(108, 92, 231, 0.15); }
+    .fi-green { background: rgba(0, 184, 148, 0.15); }
+    .fi-red { background: rgba(255, 107, 107, 0.15); }
+    .fi-yellow { background: rgba(253, 203, 110, 0.15); }
+    .fi-blue { background: rgba(116, 185, 255, 0.15); }
+    .fi-pink { background: rgba(253, 121, 168, 0.15); }
+    .fi-orange { background: rgba(255, 165, 2, 0.15); }
+    .fi-teal { background: rgba(0, 206, 209, 0.15); }
+    .feature-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .feature-card p { font-size: 13px; color: #999; line-height: 1.6; }
+
+    /* ═══════════════════════════════════════════
+       APP PREVIEW
+       ═══════════════════════════════════════════ */
+    .app-preview { padding: 100px 0; text-align: center; }
+    .preview-cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .preview-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 28px 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .preview-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(108, 92, 231, 0.3);
+    }
+    .preview-card .icon { font-size: 32px; margin-bottom: 14px; }
+    .preview-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .preview-card p { font-size: 12px; color: #999; line-height: 1.5; }
+
+    /* ═══════════════════════════════════════════
+       SUBJECTS
+       ═══════════════════════════════════════════ */
+    .subjects { padding: 80px 0; text-align: center; }
+    .subject-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 40px;
+    }
+    .subject-pill {
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 15px;
+      font-weight: 600;
+      color: #ccc;
+      transition: all 0.3s;
+    }
+    .subject-pill:hover {
+      border-color: rgba(108, 92, 231, 0.4);
+      color: #A29BFE;
+      background: rgba(108, 92, 231, 0.08);
+      transform: translateY(-2px);
+    }
+
+    /* ═══════════════════════════════════════════
+       TESTIMONIALS
+       ═══════════════════════════════════════════ */
+    .social-proof { padding: 100px 0; text-align: center; }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .testimonial {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: left;
+    }
+    .testimonial-stars { font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+    .testimonial p {
+      font-size: 15px;
+      color: #ccc;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .testimonial .author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial .avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .testimonial .author-name { font-weight: 600; font-size: 14px; }
+    .testimonial .author-role { font-size: 12px; color: #666; }
+
+    /* ═══════════════════════════════════════════
+       PRICING
+       ═══════════════════════════════════════════ */
+    .pricing { padding: 100px 0; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 40px 32px;
+    }
+    .pricing-card.featured {
+      background: linear-gradient(145deg, rgba(108, 92, 231, 0.1), rgba(108, 92, 231, 0.03));
+      border-color: rgba(108, 92, 231, 0.3);
+      position: relative;
+    }
+    .pricing-card .plan-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #6C5CE7;
+      margin-bottom: 8px;
+    }
+    .pricing-card h3 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .pricing-card .price-note {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 24px;
+    }
+    .pricing-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .pricing-list li {
+      font-size: 14px;
+      color: #ccc;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pricing-list li::before {
+      content: '';
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: rgba(0, 184, 148, 0.15);
+      border: 2px solid rgba(0, 184, 148, 0.4);
+    }
+    .pricing-free-badge {
+      display: inline-block;
+      background: rgba(0, 184, 148, 0.15);
+      color: #00B894;
+      border: 1px solid rgba(0, 184, 148, 0.25);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    /* ═══════════════════════════════════════════
+       WAITLIST
+       ═══════════════════════════════════════════ */
+    .waitlist { padding: 100px 0; }
+    .waitlist-box {
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(162, 155, 254, 0.05));
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      border-radius: 28px;
+      padding: 64px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .waitlist-box::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .waitlist-box::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 250px; height: 250px;
+      background: radial-gradient(circle, rgba(0, 184, 148, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .waitlist-box > * { position: relative; z-index: 1; }
+    .offer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 184, 148, 0.15);
+      color: #00B894;
+      border: 1px solid rgba(0, 184, 148, 0.25);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .waitlist-box h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .waitlist-box > p {
+      font-size: 17px;
+      color: #999;
+      margin-bottom: 36px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .waitlist-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .waitlist-form input {
+      flex: 1;
+      min-width: 240px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: #FAFAFA;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .waitlist-form input::placeholder { color: #666; }
+    .waitlist-form input:focus {
+      border-color: #6C5CE7;
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15);
+    }
+    .waitlist-form .btn { white-space: nowrap; }
+    .waitlist-note { font-size: 13px; color: #666; margin-top: 16px; }
+    .success-message {
+      display: none;
+      padding: 20px;
+      background: rgba(0, 184, 148, 0.1);
+      border: 1px solid rgba(0, 184, 148, 0.2);
+      border-radius: 12px;
+      color: #00B894;
+      font-weight: 600;
+      font-size: 16px;
+      margin-top: 16px;
+    }
+    .success-message.show { display: block; }
+
+    /* ═══════════════════════════════════════════
+       FAQ
+       ═══════════════════════════════════════════ */
+    .faq { padding: 100px 0; }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .faq-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .faq-item h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .faq-item p { font-size: 14px; color: #999; line-height: 1.6; }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════ */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 0;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 14px; color: #666; transition: color 0.2s; }
+    .footer-links a:hover { color: #FAFAFA; }
+    .footer-copy { font-size: 13px; color: #666; }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(3, 1fr); }
+      .preview-cards { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-cta { justify-content: center; }
+      .hero-visual { margin-top: 40px; }
+      .phone-mockup { width: 240px; height: 480px; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .ai-grid { grid-template-columns: 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .preview-cards { grid-template-columns: repeat(3, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .hero-stats { gap: 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+    }
+    @media (max-width: 640px) {
+      .steps { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .preview-cards { grid-template-columns: 1fr 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .hero-cta { flex-direction: column; align-items: center; }
+      .waitlist-box { padding: 40px 24px; }
+      .waitlist-form { flex-direction: column; }
+      .waitlist-form input { min-width: auto; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .countdown-item { min-width: 72px; padding: 14px 18px; }
+      .countdown-item .number { font-size: 32px; }
+      .ai-card { padding: 32px 24px; }
+    }
+
+    /* ═══════════════════════════════════════════
+       ANIMATIONS
+       ═══════════════════════════════════════════ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .pulse { animation: pulse 2s ease-in-out infinite; }
+  </style>
+</head>
+<body>
+  <!-- ═══════ NAVIGATION ═══════ -->
+  <nav>
+    <div class="container nav-inner">
+      <div class="logo">Focus<span>Stake</span></div>
+      <div class="nav-links">
+        <a href="#ai-features">AI Features</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#waitlist" class="btn btn-primary nav-cta">Join Waitlist</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#ai-features">AI Features</a>
+    <a href="#features">All Features</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#waitlist" class="btn btn-primary" style="text-align:center;">Join Waitlist</a>
+  </div>
+
+  <!-- ═══════ HERO ═══════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge badge-success pulse">Launching March 1, 2026</span>
+          </div>
+          <h1>
+            Stake Your Focus.<br />
+            <span class="gradient-text">Earn Your Rewards.</span>
+          </h1>
+          <p>
+            FocusStake turns studying into a high-stakes game. Stake virtual coins on your sessions, 
+            stay locked in through random check-ins, snap photos to solve problems with AI, 
+            and win 1.5x your coins back.
+          </p>
+          <div class="hero-cta">
+            <a href="#waitlist" class="btn btn-primary btn-lg">
+              Join Waitlist &mdash; 2 Weeks Free
+            </a>
+            <a href="#how-it-works" class="btn btn-secondary btn-lg">
+              See How It Works
+            </a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-greeting">Good evening</div>
+              <div class="phone-name">Alex</div>
+              <div class="phone-stats">
+                <div class="phone-stat">
+                  <div class="val">247</div>
+                  <div class="lbl">Coins</div>
+                </div>
+                <div class="phone-stat">
+                  <div class="val">12</div>
+                  <div class="lbl">Streak</div>
+                </div>
+                <div class="phone-stat">
+                  <div class="val">Lv 5</div>
+                  <div class="lbl">Level</div>
+                </div>
+              </div>
+              <div class="phone-timer">
+                <div class="phone-timer-subject">Calculus &middot; Pomodoro</div>
+                <div class="phone-timer-ring">
+                  <div class="phone-timer-time">18:32</div>
+                </div>
+                <div class="phone-timer-label">68% complete</div>
+              </div>
+              <div class="phone-session-card">
+                <div class="top">
+                  <span class="subj">Physics</span>
+                  <span class="status">Completed</span>
+                </div>
+                <div class="meta">50min &middot; 50 staked &middot; <strong>+75 coins</strong></div>
+              </div>
+              <div class="phone-session-card">
+                <div class="top">
+                  <span class="subj">Spanish</span>
+                  <span class="status">Completed</span>
+                </div>
+                <div class="meta">25min &middot; 25 staked &middot; <strong>+38 coins</strong></div>
+              </div>
+            </div>
+            <div class="phone-tab-bar">
+              <div class="phone-tab active"><div class="phone-tab-dot"></div>Home</div>
+              <div class="phone-tab">Library</div>
+              <div class="phone-tab">Analytics</div>
+              <div class="phone-tab">Profile</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <h3 class="gradient-text">1.5x</h3>
+          <p>Win Multiplier</p>
+        </div>
+        <div class="hero-stat">
+          <h3 class="gradient-text">100</h3>
+          <p>Starting Coins</p>
+        </div>
+        <div class="hero-stat">
+          <h3 class="gradient-text">GPT-4o</h3>
+          <p>AI-Powered</p>
+        </div>
+        <div class="hero-stat">
+          <h3 class="gradient-text">iOS + Android</h3>
+          <p>Both Platforms</p>
+        </div>
+        <div class="hero-stat">
+          <h3 class="gradient-text">10+</h3>
+          <p>Subjects</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ COUNTDOWN ═══════ -->
+  <section class="countdown-section">
+    <div class="container">
+      <h2>Countdown to Launch</h2>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <span class="number" id="days">--</span>
+          <span class="label">Days</span>
+        </div>
+        <div class="countdown-item">
+          <span class="number" id="hours">--</span>
+          <span class="label">Hours</span>
+        </div>
+        <div class="countdown-item">
+          <span class="number" id="minutes">--</span>
+          <span class="label">Minutes</span>
+        </div>
+        <div class="countdown-item">
+          <span class="number" id="seconds">--</span>
+          <span class="label">Seconds</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ═══════ AI SHOWCASE ═══════ -->
+  <section class="ai-showcase" id="ai-features">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Powered by AI</p>
+        <h2>Your AI Study Assistant, Built In</h2>
+        <p>Two flagship features that make FocusStake more than just a timer app.</p>
+      </div>
+      <div class="ai-grid">
+        <div class="ai-card fade-up">
+          <div class="ai-badge">GPT-4o Vision</div>
+          <div class="ai-icon">📸</div>
+          <h3>AI Snap Solve</h3>
+          <p>Snap a photo of any homework problem, textbook page, or equation. Get a detailed, step-by-step solution powered by GPT-4o in seconds.</p>
+          <ul class="ai-features-list">
+            <li>Camera capture or pick from gallery</li>
+            <li>Step-by-step solution with explanations</li>
+            <li>Auto-detects subject and topic</li>
+            <li>Save solutions to your personal library</li>
+            <li>Generate a quiz from any solution</li>
+          </ul>
+        </div>
+        <div class="ai-card fade-up" style="transition-delay: 0.1s;">
+          <div class="ai-badge">Smart Generation</div>
+          <div class="ai-icon">🧠</div>
+          <h3>AI Quiz Generator</h3>
+          <p>Turn your notes, photos, or pasted text into interactive multiple-choice quizzes. Get instant feedback, explanations, and weak area analysis.</p>
+          <ul class="ai-features-list">
+            <li>3 input methods: snap, paste text, or pick from library</li>
+            <li>5-10 multiple-choice questions per quiz</li>
+            <li>Instant green/red feedback on each answer</li>
+            <li>Detailed explanations for wrong answers</li>
+            <li>Earn coins + XP for high scores</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ═══════ HOW IT WORKS ═══════ -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">How It Works</p>
+        <h2>Four Steps to Supercharged Studying</h2>
+        <p>A simple system that makes procrastination impossible and focus rewarding.</p>
+      </div>
+      <div class="steps">
+        <div class="step fade-up">
+          <div class="step-icon">🪙</div>
+          <div class="step-number">1</div>
+          <h3>Stake Your Coins</h3>
+          <p>Put 10, 25, 50, or 100 coins on the line. Higher stakes, bigger rewards. You start with 100 free coins.</p>
+        </div>
+        <div class="step fade-up" style="transition-delay: 0.1s;">
+          <div class="step-icon">⏱️</div>
+          <div class="step-number">2</div>
+          <h3>Start Your Timer</h3>
+          <p>Choose Pomodoro (25/5), Deep Focus (50/10), or Custom. Ambient sounds keep you in the zone.</p>
+        </div>
+        <div class="step fade-up" style="transition-delay: 0.2s;">
+          <div class="step-icon">🎯</div>
+          <div class="step-number">3</div>
+          <h3>Pass Check-ins</h3>
+          <p>Random pop-ups ask "Still studying?" You get 15 seconds to respond. Three strikes and you lose your stake.</p>
+        </div>
+        <div class="step fade-up" style="transition-delay: 0.3s;">
+          <div class="step-icon">🏆</div>
+          <div class="step-number">4</div>
+          <h3>Win 1.5x Back</h3>
+          <p>Complete the session, pass your check-ins, and earn 1.5x your staked coins plus XP toward your next level.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ═══════ FEATURES GRID ═══════ -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">All Features</p>
+        <h2>Everything You Need to Stay on Track</h2>
+        <p>Built for students who want accountability, motivation, and real results.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-up">
+          <div class="feature-icon fi-purple">🪙</div>
+          <h3>Coin Staking</h3>
+          <p>Stake coins before each session. Complete it and earn 1.5x back. Fail? Lose your stake. Real consequences drive real focus.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.04s;">
+          <div class="feature-icon fi-green">⏱️</div>
+          <h3>Smart Timer</h3>
+          <p>Pomodoro (25/5), Deep Focus (50/10), or Custom (15-120 min). Auto break scheduling keeps you productive.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.08s;">
+          <div class="feature-icon fi-red">🎯</div>
+          <h3>Focus Check-ins</h3>
+          <p>Random pop-ups with a 15-second countdown. 3 strikes = session failed. Keeps you honest and off your phone.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.12s;">
+          <div class="feature-icon fi-blue">📸</div>
+          <h3>AI Snap Solve</h3>
+          <p>Photo any problem, get a GPT-4o step-by-step solution in seconds. Camera or gallery. Save to library.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.16s;">
+          <div class="feature-icon fi-pink">🧠</div>
+          <h3>AI Quiz Gen</h3>
+          <p>Generate quizzes from notes, photos, or text. MCQ format with instant feedback and weak area analysis.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.2s;">
+          <div class="feature-icon fi-yellow">📊</div>
+          <h3>Study Analytics</h3>
+          <p>Total hours, session count, success rate, avg length, subject breakdown, and quiz performance -- all tracked.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.24s;">
+          <div class="feature-icon fi-purple">⚡</div>
+          <h3>XP & Leveling</h3>
+          <p>Earn XP from sessions and quizzes. 100 XP per level. Progress bar tracks your climb. Show off your level.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.28s;">
+          <div class="feature-icon fi-orange">🔥</div>
+          <h3>Streak Tracking</h3>
+          <p>Build daily study streaks. Earn badges at 7 and 30 days. Miss a day? Streak resets. Keep the fire alive.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.32s;">
+          <div class="feature-icon fi-green">🏅</div>
+          <h3>Achievement Badges</h3>
+          <p>First Session, 50 Sessions, Quiz Master, Perfect Quiz, 500 Coins, 30-Day Streak -- 9+ badges to collect.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.36s;">
+          <div class="feature-icon fi-blue">📚</div>
+          <h3>Personal Library</h3>
+          <p>Save solutions, quizzes, and notes. Bookmark favorites. Filter by type. Swipe to delete. Your study vault.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.4s;">
+          <div class="feature-icon fi-teal">🎧</div>
+          <h3>Ambient Sounds</h3>
+          <p>Rain, cafe, or nature sounds during sessions. Toggle from the active timer screen. Focus without the silence.</p>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay: 0.44s;">
+          <div class="feature-icon fi-yellow">🌙</div>
+          <h3>Dark Mode</h3>
+          <p>Full dark and light theme. Notion-inspired clean design. Toggle from settings. Easy on the eyes, day or night.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ═══════ APP PREVIEW ═══════ -->
+  <section class="app-preview">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Inside the App</p>
+        <h2>Five Screens. Zero Distractions.</h2>
+        <p>A clean, Notion-inspired interface built for focus.</p>
+      </div>
+      <div class="preview-cards">
+        <div class="preview-card fade-up">
+          <div class="icon">🏠</div>
+          <h4>Home</h4>
+          <p>Dashboard with coin balance, streak counter, daily tips, and recent session cards.</p>
+        </div>
+        <div class="preview-card fade-up" style="transition-delay: 0.05s;">
+          <div class="icon">⏱️</div>
+          <h4>Session Flow</h4>
+          <p>Setup your stake, start the timer, survive check-ins, and see your results.</p>
+        </div>
+        <div class="preview-card fade-up" style="transition-delay: 0.1s;">
+          <div class="icon">📖</div>
+          <h4>Library</h4>
+          <p>Saved solutions, quiz results, and study notes. Filter, search, and bookmark.</p>
+        </div>
+        <div class="preview-card fade-up" style="transition-delay: 0.15s;">
+          <div class="icon">📊</div>
+          <h4>Analytics</h4>
+          <p>Study hours, success rate, subject breakdown, streaks, and quiz performance.</p>
+        </div>
+        <div class="preview-card fade-up" style="transition-delay: 0.2s;">
+          <div class="icon">👤</div>
+          <h4>Profile</h4>
+          <p>Level, XP bar, coin balance, earned badges, and settings all in one place.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ═══════ SUBJECTS ═══════ -->
+  <section class="subjects">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">For Every Subject</p>
+        <h2>Whatever You Study, We've Got You</h2>
+        <p>Pick your subjects during onboarding. Sessions and quizzes adapt to what you're learning.</p>
+      </div>
+      <div class="subject-pills">
+        <div class="subject-pill">Mathematics</div>
+        <div class="subject-pill">Science</div>
+        <div class="subject-pill">Languages</div>
+        <div class="subject-pill">Programming</div>
+        <div class="subject-pill">History</div>
+        <div class="subject-pill">Literature</div>
+        <div class="subject-pill">Business</div>
+        <div class="subject-pill">Art & Design</div>
+        <div class="subject-pill">Music</div>
+        <div class="subject-pill">Test Prep</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ═══════ TESTIMONIALS ═══════ -->
+  <section class="social-proof">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Beta Feedback</p>
+        <h2>Students Love FocusStake</h2>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial fade-up">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"The staking system actually makes me not want to leave my desk. I went from 30 minutes to 3 hours of real studying. The check-ins keep me totally honest."</p>
+          <div class="author">
+            <div class="avatar" style="background: rgba(108, 92, 231, 0.2); color: #A29BFE;">S</div>
+            <div>
+              <div class="author-name">Sarah K.</div>
+              <div class="author-role">Pre-Med Student</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial fade-up" style="transition-delay: 0.1s;">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"23-day streak and counting. But the AI Quiz Generator is my secret weapon -- I generate quizzes from my lecture notes and it finds my weak spots instantly."</p>
+          <div class="author">
+            <div class="avatar" style="background: rgba(0, 184, 148, 0.2); color: #00B894;">M</div>
+            <div>
+              <div class="author-name">Marcus T.</div>
+              <div class="author-role">CS Major</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial fade-up" style="transition-delay: 0.2s;">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Snap Solve saved me during finals. Photo of the problem, instant step-by-step. Then I generated a quiz from the solution to make sure I actually understood it."</p>
+          <div class="author">
+            <div class="avatar" style="background: rgba(255, 107, 107, 0.2); color: #FF6B6B;">J</div>
+            <div>
+              <div class="author-name">Jenna L.</div>
+              <div class="author-role">Engineering Student</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ═══════ PRICING ═══════ -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Pricing</p>
+        <h2>Start Free, Go Premium</h2>
+        <p>Everything you need to focus better. Premium unlocks the full AI experience.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card fade-up">
+          <div class="plan-badge">Free</div>
+          <h3>$0</h3>
+          <div class="price-note">Free forever</div>
+          <ul class="pricing-list">
+            <li>Coin staking & focus sessions</li>
+            <li>Pomodoro, Deep Focus, Custom timers</li>
+            <li>Focus check-ins & strike system</li>
+            <li>Streak tracking & badges</li>
+            <li>XP & leveling system</li>
+            <li>3 AI quizzes per month</li>
+            <li>Basic study analytics</li>
+          </ul>
+          <a href="#waitlist" class="btn btn-secondary" style="width:100%;">Join Waitlist</a>
+        </div>
+        <div class="pricing-card featured fade-up" style="transition-delay: 0.1s;">
+          <div class="plan-badge">Premium</div>
+          <h3>Coming Soon</h3>
+          <div class="price-note">Price announced at launch</div>
+          <ul class="pricing-list">
+            <li>Everything in Free, plus:</li>
+            <li>Unlimited AI Snap Solve</li>
+            <li>Unlimited AI Quiz Generation</li>
+            <li>Ambient study sounds (rain, cafe, nature)</li>
+            <li>Advanced analytics & subject breakdown</li>
+            <li>Extra daily coin bonuses</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="#waitlist" class="btn btn-primary" style="width:100%;">Join Waitlist</a>
+          <div class="pricing-free-badge">Waitlist = 2 weeks premium free</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ═══════ WAITLIST ═══════ -->
+  <section class="waitlist" id="waitlist">
+    <div class="container">
+      <div class="waitlist-box">
+        <div class="offer-badge">
+          <span>&#127873;</span> Join the waitlist &mdash; get 2 weeks free premium
+        </div>
+        <h2>Be First in Line on March 1</h2>
+        <p>
+          Drop your email to join the waitlist. You'll get early access, 
+          2 weeks of free premium, and 100 bonus starting coins on launch day.
+        </p>
+        <form class="waitlist-form" id="waitlistForm" action="https://formspree.io/f/xvzbggeg" method="POST" onsubmit="handleWaitlist(event)">
+          <input type="email" name="email" id="emailInput" placeholder="Enter your email address" required />
+          <input type="hidden" name="_subject" value="New FocusStake Waitlist Signup!" />
+          <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">Join Waitlist</button>
+        </form>
+        <p class="waitlist-note">No spam, ever. Unsubscribe anytime.</p>
+        <div class="success-message" id="successMessage">
+          You're on the list! Check your email for confirmation. See you on March 1.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ═══════ FAQ ═══════ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">FAQ</p>
+        <h2>Got Questions?</h2>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item fade-up">
+          <h4>Are the coins real money?</h4>
+          <p>No! FocusStake uses virtual coins as a gamification system. You start with 100 free coins and earn more by completing sessions successfully. It's all about motivation, not money.</p>
+        </div>
+        <div class="faq-item fade-up" style="transition-delay: 0.04s;">
+          <h4>What happens if I fail a check-in?</h4>
+          <p>Each session allows 3 strikes. If you miss a check-in or respond "No", you get a strike. 3 strikes = session fails and you lose your staked coins. Tough love that works.</p>
+        </div>
+        <div class="faq-item fade-up" style="transition-delay: 0.08s;">
+          <h4>How does AI Snap Solve work?</h4>
+          <p>Take a photo of any problem (math, science, code, etc.) using your camera or gallery. Our GPT-4o integration analyzes the image and returns a detailed step-by-step solution in seconds.</p>
+        </div>
+        <div class="faq-item fade-up" style="transition-delay: 0.12s;">
+          <h4>What study methods are available?</h4>
+          <p>Choose Pomodoro (25 min work / 5 min break), Deep Focus (50 min work / 10 min break), or Custom timer (15 to 120 minutes). You can also enable ambient sounds.</p>
+        </div>
+        <div class="faq-item fade-up" style="transition-delay: 0.16s;">
+          <h4>What subjects does it support?</h4>
+          <p>All of them! During onboarding, pick from Math, Science, Languages, Programming, History, Literature, Business, Art & Design, Music, and Test Prep.</p>
+        </div>
+        <div class="faq-item fade-up" style="transition-delay: 0.2s;">
+          <h4>Is FocusStake free?</h4>
+          <p>Yes! The free tier includes coin staking, timers, check-ins, streaks, badges, leveling, and basic analytics. Premium adds unlimited AI features, ambient sounds, and advanced analytics.</p>
+        </div>
+        <div class="faq-item fade-up" style="transition-delay: 0.24s;">
+          <h4>What platforms does it support?</h4>
+          <p>FocusStake is built with React Native and launches on both iOS and Android on March 1, 2026. Sign in with email/password or Google.</p>
+        </div>
+        <div class="faq-item fade-up" style="transition-delay: 0.28s;">
+          <h4>Can I use it offline?</h4>
+          <p>Timer and coin staking work offline. AI features (Snap Solve, Quiz Generation) require an internet connection since they use GPT-4o. Your data syncs when you're back online.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FINAL CTA ═══════ -->
+  <section style="padding: 80px 0; text-align: center;">
+    <div class="container">
+      <h2 style="font-size: clamp(28px, 4vw, 42px); font-weight: 800; letter-spacing: -1px; margin-bottom: 16px;">
+        Ready to Actually <span class="gradient-text">Focus</span>?
+      </h2>
+      <p style="color: #999; font-size: 17px; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto;">
+        Join the waitlist and get 2 weeks of premium free when FocusStake launches on March 1, 2026.
+      </p>
+      <a href="#waitlist" class="btn btn-primary btn-lg">
+        Join Waitlist &mdash; 2 Weeks Free
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="logo" style="font-size: 18px;">Focus<span>Stake</span></div>
+      <div class="footer-links">
+        <a href="#ai-features">AI Features</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#waitlist">Waitlist</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 FocusStake. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ═══════ SCRIPTS ═══════ -->
+  <script>
+    // ── Countdown to March 1, 2026 ──
+    function updateCountdown() {
+      const launch = new Date('2026-03-01T00:00:00').getTime();
+      const now = Date.now();
+      const diff = launch - now;
+
+      if (diff <= 0) {
+        document.getElementById('days').textContent = '0';
+        document.getElementById('hours').textContent = '0';
+        document.getElementById('minutes').textContent = '0';
+        document.getElementById('seconds').textContent = '0';
+        return;
+      }
+
+      document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById('hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ── Waitlist form (Formspree) ──
+    async function handleWaitlist(e) {
+      e.preventDefault();
+      const form = document.getElementById('waitlistForm');
+      const btn = document.getElementById('submitBtn');
+      const email = document.getElementById('emailInput').value;
+
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, _subject: 'New FocusStake Waitlist Signup!' })
+        });
+
+        if (res.ok) {
+          form.style.display = 'none';
+          document.querySelector('.waitlist-note').style.display = 'none';
+          document.getElementById('successMessage').classList.add('show');
+        } else {
+          btn.textContent = 'Try Again';
+          btn.disabled = false;
+          alert('Something went wrong. Please try again.');
+        }
+      } catch (err) {
+        btn.textContent = 'Try Again';
+        btn.disabled = false;
+        alert('Network error. Please check your connection and try again.');
+      }
+    }
+
+    // ── Mobile hamburger menu ──
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // ── Scroll animations ──
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+
+    // ── Smooth scroll ──
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // Close mobile menu if open
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>
