@@ -261,13 +261,14 @@
     }
     .phone-mockup {
       width: 280px;
-      height: 560px;
+      height: 600px;
       background: #111;
       border-radius: 36px;
       border: 3px solid #2A2A2A;
       padding: 20px 16px;
       position: relative;
       box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+      overflow: hidden;
     }
     .phone-notch {
       width: 120px;
@@ -277,9 +278,11 @@
       position: absolute;
       top: 0; left: 50%;
       transform: translateX(-50%);
+      z-index: 2;
     }
     .phone-screen {
       padding-top: 24px;
+      padding-bottom: 52px;
     }
     .phone-greeting {
       font-size: 11px;
@@ -287,25 +290,25 @@
       margin-bottom: 2px;
     }
     .phone-name {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 800;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .phone-stats {
       display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
+      gap: 6px;
+      margin-bottom: 12px;
     }
     .phone-stat {
       flex: 1;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 10px;
-      padding: 10px 8px;
+      padding: 8px 6px;
       text-align: center;
     }
     .phone-stat .val {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       color: #6C5CE7;
     }
@@ -318,19 +321,19 @@
     .phone-timer {
       background: rgba(108, 92, 231, 0.08);
       border: 1px solid rgba(108, 92, 231, 0.2);
-      border-radius: 16px;
-      padding: 20px;
+      border-radius: 14px;
+      padding: 14px;
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .phone-timer-ring {
-      width: 120px;
-      height: 120px;
-      border: 6px solid rgba(108, 92, 231, 0.2);
+      width: 100px;
+      height: 100px;
+      border: 5px solid rgba(108, 92, 231, 0.2);
       border-top-color: #6C5CE7;
       border-right-color: #6C5CE7;
       border-radius: 50%;
-      margin: 0 auto 12px;
+      margin: 0 auto 8px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -344,7 +347,7 @@
       100% { border-top-color: #6C5CE7; border-right-color: #6C5CE7; border-bottom-color: rgba(108,92,231,0.2); border-left-color: rgba(108,92,231,0.2); }
     }
     .phone-timer-time {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       letter-spacing: -1px;
     }
@@ -356,28 +359,29 @@
       font-size: 11px;
       color: #A29BFE;
       font-weight: 600;
+      margin-bottom: 4px;
     }
     .phone-session-card {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 10px;
-      padding: 12px;
+      padding: 10px 12px;
       margin-bottom: 8px;
     }
     .phone-session-card .top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .phone-session-card .subj {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
     }
     .phone-session-card .status {
       font-size: 9px;
       font-weight: 700;
-      padding: 3px 8px;
+      padding: 2px 7px;
       border-radius: 999px;
       background: rgba(0, 184, 148, 0.15);
       color: #00B894;
@@ -389,11 +393,12 @@
     .phone-session-card .meta strong { color: #00B894; }
     .phone-tab-bar {
       position: absolute;
-      bottom: 16px; left: 16px; right: 16px;
+      bottom: 12px; left: 16px; right: 16px;
       display: flex;
       justify-content: space-around;
-      padding: 10px 0 6px;
+      padding: 8px 0 4px;
       border-top: 1px solid rgba(255,255,255,0.08);
+      background: #111;
     }
     .phone-tab {
       text-align: center;
@@ -956,7 +961,7 @@
       .hero p { margin-left: auto; margin-right: auto; }
       .hero-cta { justify-content: center; }
       .hero-visual { margin-top: 40px; }
-      .phone-mockup { width: 240px; height: 480px; }
+      .phone-mockup { width: 240px; height: 520px; }
       .steps { grid-template-columns: 1fr 1fr; }
       .features-grid { grid-template-columns: 1fr 1fr; }
       .ai-grid { grid-template-columns: 1fr; }
